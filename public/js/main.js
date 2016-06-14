@@ -19411,40 +19411,70 @@ var List = require('./List.jsx');
 var ListManager = React.createClass({
   displayName: 'ListManager',
 
+
   getInitialState: function () {
     return { items: [], newItemText: '' };
   },
+
   onChange: function (e) {
     this.setState({ newItemText: e.target.value });
   },
+
   handleSubmit: function (e) {
     e.preventDefault();
     var currentItems = this.state.items;
     currentItems.push(this.state.newItemText);
     this.setState({ items: currentItems, newItemText: '' });
   },
+
   render: function () {
+
+    var divStyle = {
+      marginTop: 10
+    };
+
     return React.createElement(
       'div',
-      null,
+      { style: divStyle, className: 'col-sm-4' },
       React.createElement(
-        'h3',
-        null,
-        this.props.title
-      ),
-      React.createElement(
-        'form',
-        { onSubmit: this.handleSubmit },
-        React.createElement('input', { onChange: this.onChange, value: this.state.newItemText }),
+        'div',
+        { className: 'panel panel-primary' },
         React.createElement(
-          'button',
-          null,
-          'Add'
+          'div',
+          { className: 'panel-heading' },
+          React.createElement(
+            'h3',
+            null,
+            this.props.title
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'row panel-body' },
+          React.createElement(
+            'form',
+            { onSubmit: this.handleSubmit },
+            React.createElement(
+              'div',
+              { className: 'col-sm-9' },
+              React.createElement('input', { className: 'form-control', onChange: this.onChange, value: this.state.newItemText })
+            ),
+            React.createElement(
+              'div',
+              { className: 'col-sm-3' },
+              React.createElement(
+                'button',
+                { className: 'btn btn-primary' },
+                'Add'
+              )
+            )
+          ),
+          React.createElement(List, { items: this.state.items })
         )
-      ),
-      React.createElement(List, { items: this.state.items })
+      )
     );
   }
+
 });
 
 module.exports = ListManager;
